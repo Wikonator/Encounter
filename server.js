@@ -1,2 +1,5 @@
 var express = require("express"),
-    cookie-parser = require("cookie-parser")
+    cookie = require("cookie-parser"),
+    pg = require("pg"),
+    https = require("https"),
+    bcrypt = require("bcrypt"),
