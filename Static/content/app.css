@@ -12,3 +12,19 @@
 }
 
 /*main page*/
+
+.header {
+  top: 0%
+}
+
+#welcome {
+  color: blue;
+}
+
+.links {
+  font-family: impact;
+}
+
+.footer {
+  bottom: 0%;
+}
