@@ -8,10 +8,27 @@
         crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.5.0/angular-route.js"></script>
-        <script src="content/app.css"</script>
+        <link rel="stylesheet" type="text/css" href="content/app.css">
 
     </head>
     <body ng-app>
         <ng-view><ng-view>
+
+
+          <!-- Main Module -->
+          <script src="app.module.js"></script>
+
+         <!-- Main Page -->
+         <script src='module/mainPage/mainPage.module.js'></script>
+         <!-- <script src="app/landing/config.route.js"></script>
+         <script src="app/landing/landing.controller.js"></script> -->
+
+         <!-- testing -->
+         <!-- <script src='app/test/testing.module.js'></script>
+         <script src="app/test/config.route.js"></script>
+         <script src="app/test/testing.controller.js"></script>
+         <script type="text/javascript" src="app/qunit/qunit.js"></script> -->
+
+
     </body>
 </html>
