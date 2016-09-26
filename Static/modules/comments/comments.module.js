@@ -1,5 +1,5 @@
 (function() {
     'use strict'
 
-    angular.module('app.comments', []);
+    angular.module('app.s', []);
 })();
