@@ -5,6 +5,6 @@
     .module('app', [
       'ngRoute',
       'app.s'
-  ]);
+  ])
 
 })();
