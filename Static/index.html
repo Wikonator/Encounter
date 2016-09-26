@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
         <meta charset="utf-8">
         <title></title>
-        <script src="https://code.jquery.com/jquery-3.1.0.js"
-        integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.5.0/angular-route.js"></script>
-        <script src="content/app.css"</script>
 
+        <!-- style -->
+        <link rel="stylesheet" href="content/app.css"></link>
     </head>
-    <body ng-app>
+    <body>
+
+        2 + 2 = {{ 2 + 2}}
         <ng-view><ng-view>
+
+        <!-- main module -->
+        <script src="app.module.js"></script>
+
+        <!-- comments -->
+        <script src="modules/comments/comments.module.js"></script>
+        <script src="modules/comments/comments.controller.js"></script>
+        <script src="modules/comments/config.route.js"></script>
+
     </body>
 </html>
