@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
         <meta charset="utf-8">
         <title></title>
-        <script src="https://code.jquery.com/jquery-3.1.0.js"
-        integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.5.0/angular-route.js"></script>
+
         <link rel="stylesheet" type="text/css" href="content/app.css">
 
     </head>
-    <body ng-app>
+    <body>
+
+        2 + 2 = {{ 2 + 2}}
         <ng-view><ng-view>
 
-
+<<<<<<< HEAD
           <!-- Main Module -->
           <script src="app.module.js"></script>
 
@@ -23,12 +24,15 @@
          <script src="module/mainPage/mainPage.controller.js"></script>
          <script src="module/mainPage/config.route.js"></script>
 
+=======
+        <!-- main module -->
+        <script src="app.module.js"></script>
+>>>>>>> 0cc8d1ae0107355a7db39dc50f4ccc25e27131aa
 
-         <!-- testing -->
-         <!-- <script src='app/test/testing.module.js'></script>
-         <script src="app/test/config.route.js"></script>
-         <script src="app/test/testing.controller.js"></script>
-         <script type="text/javascript" src="app/qunit/qunit.js"></script> -->
+        <!-- comments -->
+        <script src="modules/comments/comments.module.js"></script>
+        <script src="modules/comments/comments.controller.js"></script>
+        <script src="modules/comments/config.route.js"></script>
 
 
     </body>

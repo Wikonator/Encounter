@@ -1,5 +1,7 @@
-var express = require("express"),
-    cookie = require("cookie-parser"),
-    pg = require("pg"),
-    https = require("https"),
-    bcrypt = require("bcrypt"),
+var express = require("express");
+var app = express();
+
+app.use(express.static(__dirname + '/Static'));
+
+
+app.listen(8080);
