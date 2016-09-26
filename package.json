@@ -1,0 +1,23 @@
+{
+  "name": "encounter",
+  "version": "1.0.0",
+  "description": "A link website with comments",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wikonator/Encounter.git"
+  },
+  "keywords": [
+    "Links"
+  ],
+  "author": "Obay and Wik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wikonator/Encounter/issues"
+  },
+  "homepage": "https://github.com/Wikonator/Encounter#readme"
+}
