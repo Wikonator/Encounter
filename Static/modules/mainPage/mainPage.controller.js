@@ -3,9 +3,9 @@
 
   angular
     .module(module.mainPage)
-    .controller("MainController", MainController);
+    .controller("MainPageController", MainPageController);
 
-    function MainController($scope) {
+    function MainPageController($scope) {
       var scope = $scope,
           vm = this;
 

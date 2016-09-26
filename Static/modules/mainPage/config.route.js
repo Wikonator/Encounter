@@ -3,15 +3,15 @@
   'use strict'
 
    angular
-       .module('module.mainPage')
+       .module('app.mainPage')
        .config(configFunction);
 
    configFunction.$inject = ['$routeProvider'];
 
    function configFunction($routeProvider) {
        $routeProvider.when('/', {
-           templateUrl: 'module/mainPage/mainPage.html',
-           controller: 'MainController',
+           templateUrl: 'modules/mainPage/mainPage.html',
+           controller: 'MainPageController',
            controllerAs: 'vm'
        });
      }
