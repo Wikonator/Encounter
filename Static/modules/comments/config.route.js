@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('app.s')
+        .module('app.comment')
         .config(configFunction);
 
     configFunction.$inject = ['$routeProvider'];

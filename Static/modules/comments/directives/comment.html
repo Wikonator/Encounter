@@ -1,0 +1,7 @@
+<div class="Pcomment" >
+    <form ng-submit="vm.addComment()">
+        <input ng-model="vm.newComment.content">
+        <p id="p" class="p" ng-click="vm.reply($event)">reply</p>
+        <button type="submit">comment</button>
+    </form>
+</div>
