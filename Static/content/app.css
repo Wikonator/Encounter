@@ -1,4 +1,15 @@
 /*conmments*/
+.reply {
+    
+}
+.comments {
+    border: 2px solid black;
+}
+.Pcomment {
+    margin: 20px;
+    border: 2px solid blue;
+}
+
 .c-1 {
     margin-left: 20px;
 }
