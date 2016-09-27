@@ -2,10 +2,10 @@
   "use strict"
 
   angular
-    .module(module.mainPage)
+    .module("app.mainPage")
     .controller("MainPageController", MainPageController);
 
-    function MainPageController($scope) {
+    function MainPageController($scope, $http) {
       var scope = $scope,
           vm = this;
 
@@ -13,7 +13,15 @@
           vm.logOut = logOut;
 
           function getAllLinks() {
-            console.log("I'm getting links!");
+            $http.get("http://localhost:8080/getLinks").then(function(data){
+                console.log(data.data);
+                scope.links = data.data;
+            });
+          };
+          getAllLinks();
+
+          function logOut() {
+              console.log("loggin out");
           }
     }
 

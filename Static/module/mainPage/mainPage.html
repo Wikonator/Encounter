@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="content/app.css">
+
+    </head>
+    <body>
 <div class="header">
 </div>
 
@@ -9,8 +16,8 @@
 
 
 <div>
-  <ul class="links" ng-repeat="item in links">
-    <li> <a href={{item.link}}> {{item.title}} </a>
+  <ul class="links" ng-repeat="link in vm.links">
+    <li> <a href={{link}}> {{title}} </a>
   </ul>
 </div>
 
@@ -18,3 +25,4 @@
 <div class="footer">
   <h4> do not feed the trolls</h4>
 </div>
+</body>
