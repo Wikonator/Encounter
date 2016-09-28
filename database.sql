@@ -7,3 +7,4 @@ CREATE TABLE links
     userName VARCHAR(255),
     timePosted timestamp DEFAULT current_timestamp
 );
+  
