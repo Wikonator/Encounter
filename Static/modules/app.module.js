@@ -4,7 +4,8 @@
   angular
     .module('app', [
       'ngRoute',
-      'app.mainPage'
+      'app.mainPage',
+	'app.newLinkPage'
   ])
 
 })();

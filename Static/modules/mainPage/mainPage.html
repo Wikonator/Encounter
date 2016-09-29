@@ -8,17 +8,12 @@
 </div>
 
 <div>
-    <form action="/postLink" id="postLink" method="post">
-        <textarea rows="2" cols="50" id="linkSpot" form="postLink" ng-model="linkSpot"></textarea><br>
-        <textarea rows="4" cols="50" id="description" form="postLink" ng-model="description"></textarea>
-        <button type="button" id="sendMessage" name="postButt" ng-click="clickToPost()"> Post </button>
-    </form>
+    <a href="#/newLinkPage" id="linkToPost"> Feel like posting something? </h4>
 </div>
-
 
 <div>
   <ul class="links" ng-repeat="item in links">
-    <li> <a href={{item.link}}> {{item.title}} </a>
+    <li> <a href={{item.link}}> {{item.description}} </a>
   </ul>
 </div>
 
