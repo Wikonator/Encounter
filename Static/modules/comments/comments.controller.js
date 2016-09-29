@@ -2,11 +2,11 @@
     'use strict'
 
     angular
-        .module('app.landing')
+        .module('app.s')
         .controller('CommentsController', CommentsController);
 
-    function CommentsController($Scope) {
-        console.log($Scope)
+    function CommentsController() {
+        console.log('hello')
     }
 
 
