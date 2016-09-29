@@ -7,20 +7,27 @@
 
 <!--tree structure -->
 <script type="text/ng-template"  id="x.html">
-    <div>
-        <p>{{data.user}}:  {{data.content}}</p>
+<div class="thing">
+    <div id="comment">
+        <p>{{data.id}}:  {{data.content}}</p>
+        <p>{{data.date}}</p>
+        <p>{{data.likes-data.disLikes}}</p>
     </div>
-
-    <button ng-click="add(data)">Reply</button>
+    <input ng-model="data.reply" placeholder="reply">
+    <input ng-model="data.user" placeholder="user">
+    <button ng-click="add(data,data.reply)">Reply</button>
     <button ng-click="like(data)">like</button>
+    <button ng-click="disLike(data)">disLike</button>
+    <br><br><br>
     <ul>
-        <li ng-repeat="data in data.child" ng-include="'x.html'"></li>
+        <li ng-repeat="data in data.child track by $id($index)" ng-include="'x.html'"></li>
+        <br><br><br>
     </ul>
+</div>
 </script>
 
 <ul ng-app="app" ng-controller="CommentsController">
-    
-    <li ng-repeat="data in tree" ng-include="'x.html'"></li>
+    <li ng-repeat="data in tree track by $id($index)" ng-include="'x.html'"></li>
 </ul>
 
 <!--comment directive-->

@@ -2,6 +2,9 @@
 .reply {
 
 }
+.thing {
+    border: 2px solid green;
+}
 #comment {
     border: 2px solid black;
 }
