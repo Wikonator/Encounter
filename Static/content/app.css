@@ -1,24 +1,42 @@
 /*conmments*/
 .reply {
-    
+
 }
-.comments {
+#comment {
     border: 2px solid black;
 }
-.Pcomment {
+#comment button{
+    float: right;
+}
+textarea {
+    width: 100%;
+}
+.comment {
     margin: 20px;
     border: 2px solid blue;
 }
 
-.c-1 {
+.comments-1 {
     margin-left: 20px;
+    border: 2px solid blue;
 }
 
-.c-1-1 {
+.comments-1-1 {
     margin-left: 40px;
+    border: 2px solid blue;
 }
 
-.c-1-1-1 {
+.comments-1-1-1 {
+    margin-left: 60px;
+    border: 2px solid blue;
+}
+
+.comments-1-1-1-1 {
+    margin-left: 60px;
+    border: 2px solid blue;
+}
+
+.Pcomment-1-1-1-1-1 {
     margin-left: 60px;
 }
 

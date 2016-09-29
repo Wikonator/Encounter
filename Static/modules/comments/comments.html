@@ -1,11 +1,13 @@
-<comment-directive comments =" vm.comments"></comment-directive>
+<h1>a link about a super fun thing</h1>
 
-////////////////////
-<div class="Pcomment">
-    <p>hello world comment</p>
-    <p id="p" class="p" ng-click="vm.reply($event)">reply</p>
+<new-comment-directive id="comment" comments = "vm.comments"></new-comment-directive>
+
+<div class="comments">
+    <comment-directive comments ="vm.comments"></comment-directive>
 </div>
-<div class="Pcomment"><p>main comment</p>
+
+
+<!-- <div class="Pcomment"><p>main comment</p>
     <div class="c-1 Pcomment">
         <p class="comments">reply1</p>
         <div class="c-1-1">
@@ -46,4 +48,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
