@@ -5,16 +5,24 @@
     .module("app.mainPage")
     .controller("MainPageController", MainPageController);
 
-    function MainPageController($scope, $http) {
+    function MainPageController($scope, $http, $location) {
       var scope = $scope,
           vm = this;
 
           vm.getAllLinks = getAllLinks;
           vm.logOut = logOut;
+        //   vm.switchPageToLinks = switchPageToLinks;
+
+
+          scope.changeView = function (view) {
+            //   console.log(view);
+            //   console.log("changing view to new Links");
+              $location.path(view);
+          }
 
           function getAllLinks() {
             $http.get("http://localhost:8080/getLinks").then(function(data){
-                console.log(data.data);
+                // console.log(data.data);
                 scope.links = data.data;
             });
           };
