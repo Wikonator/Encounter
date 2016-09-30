@@ -5,7 +5,7 @@
     .module('app', [
       'ngRoute',
       'app.mainPage',
-      'app.comments',
+      'app.comment',
 	'app.newLinkPage'
   ])
 
