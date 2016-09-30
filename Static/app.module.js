@@ -4,7 +4,9 @@
   angular
     .module('app', [
       'ngRoute',
+      'app.comment',
       'app.mainPage'
+
   ])
 
 })();
