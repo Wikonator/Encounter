@@ -53,8 +53,29 @@ input {
   color: blue;
 }
 
+.up-arr {
+    height: 6%;
+    width: 6%;
+}
+
+.down-arr {
+    height: 6%;
+    width: 6%;
+}
+
 .links {
   font-family: impact;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+}
+
+.oneLink {
+  height: 30px;
+  line-height: 20px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .footer {
