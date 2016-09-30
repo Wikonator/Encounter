@@ -19,14 +19,16 @@
             //   console.log("changing view to new Links");
               $location.path(view);
           }
-          
-          scope.changeView = function(comments) {
-              location.hash = '#comments'
+
+          scope.changeToComment = function (id) {
+            //   var commentId = scope.   I NEED EVENT to carry the BUTTON ID to this function
+              console.log(commentId);
+              $location.path(commentId);
           }
 
           function getAllLinks() {
             $http.get("http://localhost:8080/getLinks").then(function(data){
-                // console.log(data.data);
+                console.log(data.data);
                 scope.links = data.data;
             });
           };
