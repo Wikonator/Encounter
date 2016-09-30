@@ -36,12 +36,12 @@
   list-style-type: none;
   padding: 0px;
   margin: 0px;
-  display: block;
+  display: inline-block;
 }
 
 .oneLink {
   height: 30px;
-  line-height: 20px;
+  line-height: 14px;
   vertical-align: middle;
   display: inline-block;
 }
