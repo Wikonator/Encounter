@@ -1,0 +1,46 @@
+<!-- <div class="comment" >
+    <form ng-submit="vm.addComment()">
+        <p>{{comment.content}}</p>
+        <button type="submit" >reply</button>
+    </form>
+</div> -->
+
+
+<!--tree structure -->
+<script type="text/ng-template"  id="x.html">
+<div class="thing">
+    <div id="comment">
+        <p>{{data.id}}:  {{data.content}}</p>
+        <p>{{data.date}}</p>
+        <p>{{data.likes-data.disLikes}}</p>
+    </div>
+    <input ng-model="data.reply" placeholder="reply"></br>
+    <button ng-click="add(data,data.reply)">Reply</button>
+    <button ng-click="like(data)">like</button>
+    <button ng-click="disLike(data)">disLike</button>
+    <br><br><br>
+    <ul>
+        <li ng-repeat="data in data.child track by $id($index)" ng-include="'x.html'"></li>
+        <br><br><br>
+    </ul>
+</div>
+</script>
+
+<ul ng-app="app" ng-controller="CommentsController">
+    <form id="comment">
+        <input  ng-model="$scope.comment" id="content" placeholder='comment'></br>
+        <button ng-click="addComment($scope.comment)">add comment</button>
+    <li ng-repeat="data in tree track by $id($index)" ng-include="'x.html'"></li>
+    </form>
+    
+</ul>
+
+<!--comment directive-->
+<div class="comment" ng-repeat="comment in vm.comments track by $id($index)">
+    <p id={{comment.id}} class={{comment.class}}>{{comment.content}}</p>
+    <!-- <div ng-repeat="subComment in comment.child track by $id($index)">
+        <p class={{subComment.class}}>{{subComment.content}}</p>
+    </div> -->
+    <button type="button" ng-click="vm.findComment(vm.comments,$event)" id={{comment.id}}>reply</button>
+    <button type="submit">reply</button>
+</div>
