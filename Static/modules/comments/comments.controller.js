@@ -10,24 +10,29 @@
         var vm = this;
         vm.comment = addComment;
         vm.newComment =Comment;
+       $scope.comment = '';
+        vm.id = 0;
+        
+//        $scope.tree = [{reply:'',likes: 0, disLikes: 0,content: 'first', class: "comments-1", id:"1", child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
+//            {likes: 0, disLikes: 0,content: 'second',child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
+//        ];
+        $scope.tree = [];
         
         // should get the comments from the database
-        vm.comments = [
-            {content: 'first', class: "comments-1", id:"1", child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
-            {content: 'second',child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[{content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
-        ];
+//        vm.comments = [
+//            {content: 'first', class: "comments-1", id:"1", child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
+//            {content: 'second',child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[{content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
+//        ];
         
-        function Comment(data,reply) {
-            console.table(data);
-            console.log(content);
-            var post = data.child.length + 1;
-            var newName = data.name + '-' + post;
-            this.content = content;
-            this.class = newName;
-            this.id = newName;
+        function Comment(reply,id,userName, date) {
+            this.content = reply;
+            this.class = id;
+            this.id = id;
             this.child = [];
-            this.user = "somebody";
-            this.date = new Date;  
+            this.user = userName;
+            this.date = date;
+            this.likes = 0;
+            this.disLikes = 0;
         }
         $scope.like = function(data) {
                 data.likes++
@@ -38,22 +43,24 @@
                 data.disLikes++
         }
         
+        $scope.addComment = function(reply) {
+            vm.id ++;
+            $scope.tree.push(new Comment(reply,vm.id,'userName',new Date));
+            $('#content').val('');
+        }
+        
         $scope.add = function(data,reply) {
             //vm.newComment(data,content)
-            console.log(reply);
+ 
             var post = data.child.length + 1;
             var newName = data.id + '-' + post;
             //data.child.push(vm.newComment(data,content));
             //var content = content;
-            data.child.push({reply:'',likes: 0, disLikes: 0,content: reply, class: newName, id: newName, child: [], user: 'somebody', date: new Date});
+//            data.child.push({reply:'',likes: 0, disLikes: 0,content: reply, class: newName, id: newName, child: [], user: 'somebody', date: new Date});
+            data.child.push(new Comment(reply,newName,'someBody', new Date))
             data.reply = '';
         };
         
-        $scope.tree = [
-            {reply:'',likes: 0, disLikes: 0,content: 'first', class: "comments-1", id:"1", child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
-            {likes: 0, disLikes: 0,content: 'second',child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
-        ];
-
         function getComments() {
 
             /*
@@ -74,3 +81,16 @@
 
 
 })();
+
+
+[
+    {id:1,parent:null,child:[]},
+    {id:2,parent:null,child:[]},
+    {id:3,parent:null,child:[]},
+    {id:1-1,parent:1,child:[]},
+    {id:1-2,parent:2,child:[]},
+    {id:1-3,parent:3,child:[]},
+    {id:1-1-1,parent:1-1,child:[]},
+    {id:1-1-2,parent:1-2,child:[]},
+    {id:1-1-3,parent:1-3,child:[]}
+]

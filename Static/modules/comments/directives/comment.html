@@ -5,6 +5,7 @@
     </form>
 </div> -->
 
+
 <!--tree structure -->
 <script type="text/ng-template"  id="x.html">
 <div class="thing">
@@ -13,8 +14,7 @@
         <p>{{data.date}}</p>
         <p>{{data.likes-data.disLikes}}</p>
     </div>
-    <input ng-model="data.reply" placeholder="reply">
-    <input ng-model="data.user" placeholder="user">
+    <input ng-model="data.reply" placeholder="reply"></br>
     <button ng-click="add(data,data.reply)">Reply</button>
     <button ng-click="like(data)">like</button>
     <button ng-click="disLike(data)">disLike</button>
@@ -27,7 +27,12 @@
 </script>
 
 <ul ng-app="app" ng-controller="CommentsController">
+    <form id="comment">
+        <input  ng-model="$scope.comment" id="content" placeholder='comment'></br>
+        <button ng-click="addComment($scope.comment)">add comment</button>
     <li ng-repeat="data in tree track by $id($index)" ng-include="'x.html'"></li>
+    </form>
+    
 </ul>
 
 <!--comment directive-->

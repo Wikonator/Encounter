@@ -10,7 +10,8 @@
             templateUrl: 'modules/comments/directives/newComment.html',
             restrict: 'E',
             scope: {
-                comments: '='
+                comments: '=',
+                $scope: '='
             },
             bindToController: true,
             controller: NewCommentsDirectiveController,
@@ -23,10 +24,11 @@
         vm.newComment = new Comment;
         vm.addComment = addComment;
 
-        function addComment() {
-            vm.comments.push(vm.newComment);
-            console.table(vm.comments)
-            vm.newComment = new Comment;
+        function addComment(data) {
+           console.log(data)
+//            vm.comments.push(vm.newComment);
+//            console.table(vm.comments)
+//            vm.newComment = new Comment;
         }
 
         function Comment() {
