@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/Wikonator/Encounter/issues"
   },
-  "homepage": "https://github.com/Wikonator/Encounter#readme"
+  "homepage": "https://github.com/Wikonator/Encounter#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "pg": "^6.1.0",
+    "url-parse": "^1.1.3"
+  }
 }
