@@ -19,6 +19,10 @@
             //   console.log("changing view to new Links");
               $location.path(view);
           }
+          
+          scope.changeView = function(comments) {
+              location.hash = '#comments'
+          }
 
           function getAllLinks() {
             $http.get("http://localhost:8080/getLinks").then(function(data){

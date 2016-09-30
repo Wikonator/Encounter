@@ -12,11 +12,35 @@
         vm.newComment =Comment;
        $scope.comment = '';
         vm.id = 0;
+        $scope.tree =  [];
+        var result = {};
+
+$scope.tree.map(function(comment) {
+	result[comment.parent] = 	result[comment.parent] || [];
+		result[comment.parent].push(comment);
+});
+        console.log(result)
+        var x ;
+        for (var key in result){
+	   if(key === "null") {
+		  console.log('here')
+	   }else {
+		x = $scope.tree.find(function(comment){
+		  return comment.id === key;
+		});
+		
+		result[key].forEach(function(comment) {
+			x.child.push(comment)
+		})
+		
+	}
+
+}
         
 //        $scope.tree = [{reply:'',likes: 0, disLikes: 0,content: 'first', class: "comments-1", id:"1", child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
 //            {likes: 0, disLikes: 0,content: 'second',child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
 //        ];
-        $scope.tree = [];
+  
         
         // should get the comments from the database
 //        vm.comments = [
