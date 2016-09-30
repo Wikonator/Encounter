@@ -83,3 +83,6 @@ app.get("/getLinks", function(req, res, next) {
 
 app.listen(8080);
 
+
+console.log("hey there, wanna buy some links?");
+

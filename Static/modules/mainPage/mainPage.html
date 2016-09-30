@@ -1,0 +1,39 @@
+<div class="header">
+</div>
+
+<div>
+  <h2 id="welcome"> Greetings! You have just Encountered a page full of interesting links!</h2>
+  <p>Look around and feel free to comment on any link you see or post one yourself</p>
+
+</div>
+
+<div>
+    <h4> Feel like Ntrusting us with something? Share something interesting!</h4>
+    <button type="button" id="linkToPost" ng-click="changeView('/newLinkPage')"> Nlighten someone!
+    <!-- <a href="#/newLinkPage"> Feel like posting something? </h4> -->
+</div>
+
+<div>
+    <div>
+        <ul class="links">
+        <div>
+            <li ng-repeat="item in links">
+                <div>
+                    <img src="/assets/up.jpg" class="up-arr"></img>
+                </div>
+                <div>
+                    <p>10</p>
+                </div>
+                <div> <img src="/assets/down.jpg" class="down-arr"> </img>
+                </div>
+                <span class="oneLink"><a href={{item.link}}> {{item.description}} </a> </span> </li>
+                <button type="button" id="goComment" ng-click="changeView('/comments')">
+        </div>
+</ul>
+</div>
+</div>
+
+
+<div class="footer">
+  <h4> do not feed the trolls</h4>
+</div>
