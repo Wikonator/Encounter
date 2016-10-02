@@ -6,7 +6,7 @@
         .controller('CommentsController', CommentsController);
 
 
-    function CommentsController($scope) {
+    function CommentsController($scope,$http) {
         var vm = this;
         vm.comment = addComment;
         vm.newComment =Comment;
@@ -48,7 +48,7 @@ $scope.tree.map(function(comment) {
 //            {content: 'second',child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[{content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
 //        ];
         
-        function Comment(reply,id,userName, date) {
+        function Comment(reply,id,userName, date,parent) {
             this.content = reply;
             this.class = id;
             this.id = id;
@@ -57,6 +57,7 @@ $scope.tree.map(function(comment) {
             this.date = date;
             this.likes = 0;
             this.disLikes = 0;
+            this.parent = parent;
         }
         $scope.like = function(data) {
                 data.likes++
@@ -69,13 +70,13 @@ $scope.tree.map(function(comment) {
         
         $scope.addComment = function(reply) {
             vm.id ++;
+            $http.post('/addComment', new Comment(reply,vm.id,'userName',new Date,null)).then(function(data){},function(err){})
             $scope.tree.push(new Comment(reply,vm.id,'userName',new Date));
             $('#content').val('');
         }
         
         $scope.add = function(data,reply) {
             //vm.newComment(data,content)
- 
             var post = data.child.length + 1;
             var newName = data.id + '-' + post;
             //data.child.push(vm.newComment(data,content));

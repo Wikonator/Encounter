@@ -1,5 +1,5 @@
 CREATE TABLE comments (
-    linkId integer REFERENCE links,
+    linkId integer REFERENCES links,
     user varchar(255),
     content varchar(255),
     date varchar(50),
