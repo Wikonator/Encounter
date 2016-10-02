@@ -23,7 +23,7 @@ $scope.tree.map(function(comment) {
         var x ;
         for (var key in result){
 	   if(key === "null") {
-		  console.log('here')
+		  ///////
 	   }else {
 		x = $scope.tree.find(function(comment){
 		  return comment.id === key;

@@ -11,7 +11,7 @@ app.use(require("body-parser").json({
     extended: false
 }));
 
-// console.log(require("body-parser"));
+
 function addLink(userID, link, image, description, res, req) {
   var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
   client.connect(function(err) {
@@ -80,7 +80,46 @@ app.get("/getLinks", function(req, res, next) {
     getLinksFromDB(res);
 })
 
+//comments
+app.post("/addComment", function(req,res) {
+    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    client.connect(function(err){
+        if(err){
+            throw new Error('please check the connection with the DB');
+        }
+        
+        var query = "INSERT INTO comments (linkId,userName,content,date,id,likes,disLikes,parent) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning *";
+        
+        client.query(query,[req.body.id,req.body.user,req.body.content,req.body.date,req.body.id,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
 
+            if(error){
+                console.log(error)
+            }
+            res.json(result.rows);
+            res.end();
+        })
+    });
+    
+    
+});
+
+app.get("/getComments",function(req,res) {
+    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    client.connect(function(err){
+        if(err){
+            throw new Error('please check the connection with the DB');
+        }
+        
+        var query = "SELECT * from comments WHERE linkid = $1";
+        client.query(query,[1],function(err, result){
+            if(err){
+            console.log(err);
+            }
+            
+            res.json(result.rows);
+            res.end();
+        })
+    })
+})
+// the end of comments
 app.listen(8080);
-
-console.log("hey there, wanna buy some links?");
