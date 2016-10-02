@@ -18,19 +18,18 @@
         <ul class="links">
         <div>
             <li ng-repeat="item in links">
-                <div>
-                    <img src="/assets/up.jpg" class="up-arr"></img>
+                <div class="divArrowDown">
+                    <img class="up-arr" src="/assets/up.jpg" ></img>
                 </div>
-                <div>
+                <div class="score">
                     <p>10</p>
                 </div>
-                <div> <img src="/assets/down.jpg" class="down-arr"> </img>
+                <div class="divArrowDown"> <img class="down-arr" src="/assets/down.jpg"> </img>
                 </div>
-                <span class="oneLink"><a href={{item.link}}> {{item.description}} </a> </span> 
-                <button type="button" id="goComment" ng-click="changeView('/comments')">comments</button>    
-        </li>
-    
-    </div>
+                <span class="oneLink"><a href={{item.link}}> {{item.description}} </a> </span>
+                <button type="button" id="goComment" ng-click="changeView('/comments')"> Comment
+            </li>
+        </div>
 </ul>
 </div>
 </div>
