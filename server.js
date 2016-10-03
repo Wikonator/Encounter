@@ -82,15 +82,16 @@ app.get("/getLinks", function(req, res, next) {
 
 //comments
 app.post("/addComment", function(req,res) {
+    console.log(req.body)
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
         }
         
-        var query = "INSERT INTO comments (linkId,userName,content,date,id,likes,disLikes,parent) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning *";
+        var query = "INSERT INTO comments (linkId,userName,content,date,likes,disLikes,parent) VALUES ($1,$2,$3,$4,$5,$6,$7) returning *";
         
-        client.query(query,[req.body.id,req.body.user,req.body.content,req.body.date,req.body.id,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
+        client.query(query,[1,req.body.user,req.body.content,req.body.date,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
 
             if(error){
                 console.log(error)
@@ -122,4 +123,44 @@ app.get("/getComments",function(req,res) {
     })
 })
 // the end of comments
+
+// auth
+app.post("/register", function(req,res) {
+    console.log(req.body)
+    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    client.connect(function(err){
+        if(err){
+            throw new Error('please check the connection with the DB');
+        }
+        
+        var query = "INSERT INTO users (name,email,password) values ($1,$2,$3)";
+        client.query(query,[req.body.user,req.body.email,req.body.password],function(err, result){
+            if(err){
+            console.log(err);
+            }
+            
+            res.json(result.rows);
+            res.end();
+        })
+    })
+})
+
+app.get("/login", function(req,res) {
+    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    client.connect(function(err){
+        if(err){
+            res.error('please check the connection with the DB');
+        }
+        
+        var query = "SELECT * FROM users where email = $1 and password = $2";
+        client.query(query,[req.body.email,req.body.password],function(err, result){
+            if(err){
+            console.log(err);
+            }
+            
+            res.json(result.rows);
+            res.end();
+        })
+    })
+})
 app.listen(8080);
