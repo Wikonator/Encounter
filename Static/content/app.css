@@ -1,3 +1,6 @@
+body {
+    margin: 0px;
+}
 /*conmments*/
 .reply {
 
@@ -80,4 +83,27 @@ input {
 
 .footer {
   bottom: 0%;
+}
+
+/*navbar*/
+
+#navbar {
+    height: 50px;
+    width: 100%;
+    background-color: green;
+    text-align: right;
+}
+
+#navbar a{
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+/*auth*/
+#register {
+    width: 400px;
+    height: 300px;
+    border: 2px solid green;
+    margin-top: 30%;
+    margin-left: 30%;
 }
