@@ -119,7 +119,6 @@ app.post("/addComment",isLoggedIn, function(req,res) {
 });
 
 app.get("/getComments",isLoggedIn,function(req,res) {
-        console.log(req.session)
 //    if(!req.session.user) {
 //        res.status(404);
 //        res.end();
@@ -131,7 +130,7 @@ app.get("/getComments",isLoggedIn,function(req,res) {
         }
         
         var query = "SELECT * from comments WHERE linkid = $1";
-        client.query(query,[1],function(err, result){
+        client.query(query,[req.query.id],function(err, result){
             if(err){
             console.log(err);
             }
