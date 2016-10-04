@@ -10,12 +10,21 @@
         var vm = this;
         vm.comment = {};
         vm.newComment =Comment;
-        vm.id = 0;
+        vm.id = getParameterByName('id');
         vm.tree =  getComments();
         
+        function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
         
         
-        function Comment(reply,userName, date,parent) {
+        function Comment(reply,userName, date,parent,id) {
             this.content = reply;
 //            this.class = id;
 //            this.id = id;
@@ -25,6 +34,7 @@
             this.likes = 0;
             this.disLikes = 0;
             this.parent = parent;
+            this.linkId = id;
         }
         
         vm.like = function(data) {
@@ -36,9 +46,8 @@
         }
        
         vm.addComment = function(reply) {
-            vm.id ++;
             vm.comment = new Comment;
-            $http.post('/addComment', new Comment(reply,'userName',new Date,null)).then(function(data){
+            $http.post('/addComment', new Comment(reply,'userName',new Date,null,vm.id)).then(function(data){
                 console.log(data)
                 vm.tree.push(data.data[0]);
                 console.table(vm.tree)
@@ -54,7 +63,7 @@
             //var content = content;
 //            data.child.push({reply:'',likes: 0, disLikes: 0,content: reply, class: newName, id: newName, child: [], user: 'somebody', date: new Date});
             console.log(data)
-            $http.post('/addComment', new Comment(reply,'userName',new Date,data.id)).then(function(result) {
+            $http.post('/addComment', new Comment(reply,'userName',new Date,data.id,vm.id)).then(function(result) {
                 console.log(result);
 //                vm.tree.push(result.config.data);
                   data.child.push(result.config.data)
@@ -64,17 +73,9 @@
         };
         
         function getComments() {
-            function getParameterByName(name, url) {
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
+            
 
-            return $http.get("/getComments" + "?id=" + getParameterByName('id')).then(function(data){
+            return $http.get("/getComments" + "?id=" + vm.id).then(function(data){
                 vm.tree = data.data
              return  '';
             }).then(function() {
