@@ -13,6 +13,8 @@
         vm.id = 0;
         vm.tree =  getComments();
         
+        
+        
         function Comment(reply,userName, date,parent) {
             this.content = reply;
 //            this.class = id;
@@ -62,8 +64,17 @@
         };
         
         function getComments() {
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
 
-            return $http.get("/getComments").then(function(data){
+            return $http.get("/getComments" + "?id=" + getParameterByName('id')).then(function(data){
                 vm.tree = data.data
              return  '';
             }).then(function() {
