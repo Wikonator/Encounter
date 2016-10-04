@@ -8,114 +8,100 @@
 
     function CommentsController($scope,$http) {
         var vm = this;
-        vm.comment = addComment;
+        vm.comment = {};
         vm.newComment =Comment;
-       $scope.comment = '';
         vm.id = 0;
-        $scope.tree =  [];
-        var result = {};
-
-$scope.tree.map(function(comment) {
-	result[comment.parent] = 	result[comment.parent] || [];
-		result[comment.parent].push(comment);
-});
-        console.log(result)
-        var x ;
-        for (var key in result){
-	   if(key === "null") {
-		  ///////
-	   }else {
-		x = $scope.tree.find(function(comment){
-		  return comment.id === key;
-		});
-		
-		result[key].forEach(function(comment) {
-			x.child.push(comment)
-		})
-		
-	}
-
-}
+        vm.tree =  getComments();
         
-//        $scope.tree = [{reply:'',likes: 0, disLikes: 0,content: 'first', class: "comments-1", id:"1", child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
-//            {likes: 0, disLikes: 0,content: 'second',child: [{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1", child: []}, {likes: 0, disLikes: 0,child:[{likes: 0, disLikes: 0,content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {likes: 0, disLikes: 0,child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
-//        ];
-  
-        
-        // should get the comments from the database
-//        vm.comments = [
-//            {content: 'first', class: "comments-1", id:"1", child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2"}]},
-//            {content: 'second',child: [{content:'first child',class: "comments-1-1", id:"1-1", child: []}, {child:[{content:'first child',class: "comments-1-1", id:"1-1-2", child: []}, {child:[],content: "second child",class: "comments-1-1", id:"1-2-2"}],content: "second child",class: "comments-1-1", id:"1-2"}], class: "comments-1", id:"2"}
-//        ];
-        
-        function Comment(reply,id,userName, date,parent) {
+        function Comment(reply,userName, date,parent) {
             this.content = reply;
-            this.class = id;
-            this.id = id;
-            this.child = [];
+//            this.class = id;
+//            this.id = id;
+            //this.child = [];
             this.user = userName;
             this.date = date;
             this.likes = 0;
             this.disLikes = 0;
             this.parent = parent;
         }
-        $scope.like = function(data) {
-                data.likes++
-                
+        
+        vm.like = function(data) {
+                data.likes++    
         }
         
-        $scope.disLike = function(data) {
+        vm.disLike = function(data) {
                 data.disLikes++
         }
-        
-        $scope.addComment = function(reply) {
+       
+        vm.addComment = function(reply) {
             vm.id ++;
-            $http.post('/addComment', new Comment(reply,vm.id,'userName',new Date,null)).then(function(data){},function(err){})
-            $scope.tree.push(new Comment(reply,vm.id,'userName',new Date));
-            $('#content').val('');
+            vm.comment = new Comment;
+            $http.post('/addComment', new Comment(reply,'userName',new Date,null)).then(function(data){
+                console.log(data)
+                vm.tree.push(data.data[0]);
+                console.table(vm.tree)
+                },function(err){console.log(err)});
         }
         
         $scope.add = function(data,reply) {
-            //vm.newComment(data,content)
+            //vm.newComment(data,content);
+            data.child = data.child || [];
             var post = data.child.length + 1;
             var newName = data.id + '-' + post;
             //data.child.push(vm.newComment(data,content));
             //var content = content;
 //            data.child.push({reply:'',likes: 0, disLikes: 0,content: reply, class: newName, id: newName, child: [], user: 'somebody', date: new Date});
-            data.child.push(new Comment(reply,newName,'someBody', new Date))
-            data.reply = '';
+            console.log(data)
+            $http.post('/addComment', new Comment(reply,'userName',new Date,data.id)).then(function(result) {
+                console.log(result);
+//                vm.tree.push(result.config.data);
+                  data.child.push(result.config.data)
+                console.table(vm.tree);
+                data.reply = '';
+            })
         };
         
         function getComments() {
 
-            /*
-            $get("/getComments", function() {
+            return $http.get("/getComments").then(function(data){
+                vm.tree = data.data
+             return  '';
+            }).then(function() {
+                var result = {};
 
-            })
-            */
-            return [{comment: 'first'},{comment: 'second'},{comment: 'thrid'},{comment: 'four'},{comment: 'five'}]
-        }
+                vm.tree.map(function(comment) {
+                    comment.child = [];
+                    result[comment.parent] = result[comment.parent] || [];
+                    result[comment.parent].push(comment);
+                });
+                    console.table(result);
+                    
+                        var x ;
+                        for (var key in result){
+                           if(key === "null") {
+                              ///////
+                           }else {
+                            x = vm.tree.find(function(comment){
+                              return comment.id == key;
+                            });
+                            result[key].forEach(function(comment) {
+                                x.child.push(comment)
+                            })
 
-        function addComment() {
-            vm.comments.push(vm.newComment);
-            console.table(vm.comments)
-        }
+                           }
 
+                        }
+                console.table(vm.tree)
+                vm.tree =vm.tree.filter(function(comment,array,index){
+                    return comment.parent === null
+                })
+                console.table(vm.tree)
+                    }).catch(function(err){
+                        location.hash = 'login'
+                    })
+                }
 
     }
 
 
 })();
-
-
-[
-    {id:1,parent:null,child:[]},
-    {id:2,parent:null,child:[]},
-    {id:3,parent:null,child:[]},
-    {id:1-1,parent:1,child:[]},
-    {id:1-2,parent:2,child:[]},
-    {id:1-3,parent:3,child:[]},
-    {id:1-1-1,parent:1-1,child:[]},
-    {id:1-1-2,parent:1-2,child:[]},
-    {id:1-1-3,parent:1-3,child:[]}
-]

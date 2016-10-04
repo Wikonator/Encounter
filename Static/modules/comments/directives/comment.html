@@ -28,8 +28,8 @@
 
 <ul ng-app="app" ng-controller="CommentsController">
     <form id="comment">
-        <input  ng-model="$scope.comment" id="content" placeholder='comment'></br>
-        <button ng-click="addComment($scope.comment)">add comment</button>
+        <input  ng-model="comment.content" id="content" placeholder='comment'></br>
+        <button ng-click="vm.addComment(comment.content)">add comment</button>
     <li ng-repeat="data in tree track by $id($index)" ng-include="'x.html'"></li>
     </form>
     
