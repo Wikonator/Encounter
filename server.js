@@ -1,9 +1,8 @@
 var express = require("express"),
     pg = require("pg"),
     URL = require("url-parse"),
+    cookieSession = require('cookie-session'),
     app = express();
-
-var cookieSession = require('cookie-session');
 
 
 app.use(express.static(__dirname + '/Static'));
@@ -84,6 +83,7 @@ function getLinksFromDB(res) {
             return res.json("name", {error: "That email is already taken, fam!"});
         }
         var myArr = results.rows;
+        myArr.reverse();
         console.log(myArr);
         client.end();
         res.json(myArr);
