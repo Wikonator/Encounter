@@ -105,7 +105,7 @@ app.post("/addComment",isLoggedIn, function(req,res) {
         
         var query = "INSERT INTO comments (linkId,userName,content,date,likes,disLikes,parent) VALUES ($1,$2,$3,$4,$5,$6,$7) returning *";
         
-        client.query(query,[1,req.body.user,req.body.content,req.body.date,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
+        client.query(query,[req.body.linkId,req.body.user,req.body.content,req.body.date,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
 
             if(error){
                 console.log(error)
