@@ -3,6 +3,9 @@ var express = require("express"),
     URL = require("url-parse"),
     app = express();
 
+var cookieSession = require('cookie-session');
+
+
 app.use(express.static(__dirname + '/Static'));
 app.use(require("body-parser").urlencoded({
     extended: false
@@ -10,6 +13,20 @@ app.use(require("body-parser").urlencoded({
 app.use(require("body-parser").json({
     extended: false
 }));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}));
+
+var isLoggedIn = function(req,res,next){
+    if(!req.session.user){
+        res.status(403);
+        res.end();
+    } else {
+        next();
+    }
+}
 
 
 function addLink(userID, link, image, description, res, req) {
@@ -27,13 +44,12 @@ function addLink(userID, link, image, description, res, req) {
             return res.json({error: "error"});
         }
       client.end();
-      console.log("allDone");
       res.json("allDone");
     });
   });
 }
 
-app.post("/postLink", function(req, res, next) {
+app.post("/postLink",isLoggedIn, function(req, res, next) {
     // console.log(req.body);
     var here = req.body,
         username = 1;
@@ -67,7 +83,6 @@ function getLinksFromDB(res) {
             console.log("count connect to database to get this");
             return res.json("name", {error: "That email is already taken, fam!"});
         }
-        console.log("got em boss");
         var myArr = results.rows;
         client.end();
         res.json(myArr);
@@ -75,13 +90,12 @@ function getLinksFromDB(res) {
   });
 };
 
-app.get("/getLinks", function(req, res, next) {
-    console.log("I fired");
+app.get("/getLinks",isLoggedIn, function(req, res, next) {
     getLinksFromDB(res);
 })
 
 //comments
-app.post("/addComment", function(req,res) {
+app.post("/addComment",isLoggedIn, function(req,res) {
     console.log(req.body)
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
@@ -104,7 +118,12 @@ app.post("/addComment", function(req,res) {
     
 });
 
-app.get("/getComments",function(req,res) {
+app.get("/getComments",isLoggedIn,function(req,res) {
+        console.log(req.session)
+//    if(!req.session.user) {
+//        res.status(404);
+//        res.end();
+//    }
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
         if(err){
@@ -126,7 +145,6 @@ app.get("/getComments",function(req,res) {
 
 // auth
 app.post("/register", function(req,res) {
-    console.log(req.body)
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
         if(err){
@@ -145,6 +163,7 @@ app.post("/register", function(req,res) {
     })
 })
 
+
 app.get("/login", function(req,res) {
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
@@ -157,10 +176,20 @@ app.get("/login", function(req,res) {
             if(err){
             console.log(err);
             }
-            
+            req.session.user = {
+                loggedin: true
+            }
+        
+            console.log(req.session)
             res.json(result.rows);
             res.end();
         })
     })
 })
+
+app.get("/logout", function(req,res) {
+    req.session.user = null;
+    res.json();
+    res.end('logged out');
+});
 app.listen(8080);

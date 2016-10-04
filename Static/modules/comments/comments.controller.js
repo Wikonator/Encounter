@@ -66,17 +66,15 @@
             return $http.get("/getComments").then(function(data){
                 vm.tree = data.data
              return  '';
-            },function(err){
-                console.log(err)
             }).then(function() {
-                console.log('here')
                 var result = {};
+
                 vm.tree.map(function(comment) {
                     comment.child = [];
                     result[comment.parent] = result[comment.parent] || [];
-                        result[comment.parent].push(comment);
-                    });
-                    console.log(result);
+                    result[comment.parent].push(comment);
+                });
+                    console.table(result);
                     
                         var x ;
                         for (var key in result){
@@ -98,13 +96,12 @@
                     return comment.parent === null
                 })
                 console.table(vm.tree)
+                    }).catch(function(err){
+                        location.hash = 'login'
                     })
                 }
-
-
 
     }
 
 
 })();
-

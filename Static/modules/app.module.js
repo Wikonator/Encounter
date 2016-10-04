@@ -7,7 +7,6 @@
       'app.mainPage',
       'app.comment',
 	'app.newLinkPage',
-    'app.navbar',
       'app.auth'
   ])
 
