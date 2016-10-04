@@ -84,6 +84,7 @@ function getLinksFromDB(res) {
             return res.json("name", {error: "That email is already taken, fam!"});
         }
         var myArr = results.rows;
+        console.log(myArr);
         client.end();
         res.json(myArr);
     });
@@ -102,9 +103,9 @@ app.post("/addComment",isLoggedIn, function(req,res) {
         if(err){
             throw new Error('please check the connection with the DB');
         }
-        
+
         var query = "INSERT INTO comments (linkId,userName,content,date,likes,disLikes,parent) VALUES ($1,$2,$3,$4,$5,$6,$7) returning *";
-        
+
         client.query(query,[1,req.body.user,req.body.content,req.body.date,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
 
             if(error){
@@ -114,8 +115,8 @@ app.post("/addComment",isLoggedIn, function(req,res) {
             res.end();
         })
     });
-    
-    
+
+
 });
 
 app.get("/getComments",isLoggedIn,function(req,res) {
@@ -128,13 +129,13 @@ app.get("/getComments",isLoggedIn,function(req,res) {
         if(err){
             throw new Error('please check the connection with the DB');
         }
-        
+
         var query = "SELECT * from comments WHERE linkid = $1";
         client.query(query,[req.query.id],function(err, result){
             if(err){
             console.log(err);
             }
-            
+
             res.json(result.rows);
             res.end();
         })
@@ -149,13 +150,13 @@ app.post("/register", function(req,res) {
         if(err){
             throw new Error('please check the connection with the DB');
         }
-        
+
         var query = "INSERT INTO users (name,email,password) values ($1,$2,$3)";
         client.query(query,[req.body.user,req.body.email,req.body.password],function(err, result){
             if(err){
             console.log(err);
             }
-            
+
             res.json(result.rows);
             res.end();
         })
@@ -169,7 +170,7 @@ app.get("/login", function(req,res) {
         if(err){
             res.error('please check the connection with the DB');
         }
-        
+
         var query = "SELECT * FROM users where email = $1 and password = $2";
         client.query(query,[req.body.email,req.body.password],function(err, result){
             if(err){
@@ -178,7 +179,7 @@ app.get("/login", function(req,res) {
             req.session.user = {
                 loggedin: true
             }
-        
+
             console.log(req.session)
             res.json(result.rows);
             res.end();
