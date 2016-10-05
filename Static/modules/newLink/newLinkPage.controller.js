@@ -8,7 +8,8 @@
     function newLinkPageController($scope, $http) {
         var scope = $scope,
             vm = this;
-
+            vm.error = '';
+        
             scope.clickToPost = function () {
                 var formData = {
                     username : "ImHereToKickAxe",
@@ -17,10 +18,10 @@
                 };
               //   console.log(formData);
                 $http.post("http://localhost:8080/postLink", formData).then(function(success) {
-                    console.log("succes posting this stuff");
-                    window.location.hash = "/";
+                    location.hash = "/";
                 }, function(error){
-                    console.log(error);
+                    console.log(error.data);
+                    vm.error = error.data;
                 });
             }
     }

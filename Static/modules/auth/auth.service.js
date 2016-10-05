@@ -14,6 +14,7 @@
       login: login,
       logout: logout,
       isLoggedIn: isLoggedIn,
+      checkError: checkError,
       error: ''
     };
 
@@ -22,7 +23,11 @@
     ////////////
       
     var loggedin = false;
-    console.log('authservice')
+      
+    function checkError() {
+        return service.error;
+    }
+      
     function register(user) {
         $http.post('/register', {
             user: user.user,
@@ -31,7 +36,7 @@
         }).then(function() {
             login(user)
         }).catch(function(error) {
-            service.error = error;
+            service.error = error.data;
         });
     }
 
@@ -41,25 +46,26 @@
             location.hash = 'register'
             return;
         }).catch(function(error) {
-            console.log('error')
+            console.log(error)
             service.error = error;
         });
     }
 
     function login(user) {        
-        $http.get('/login').then(function(result) {
+        $http.post('/login', {
+            user: user.user,
+            email: user.email,
+            password: user.password
+        }).then(function(result) {
             loggedin = true;
-            console.log(loggedin)
             location.hash = '';
             return;
         }).catch(function(error) {
-            console.log('error')
-            service.error = error;
+            service.error = error.data;
         });
     }
     
     function isLoggedIn() {
-        console.log('isloggedin')
       return loggedin;
     }
   }

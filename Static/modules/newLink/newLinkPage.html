@@ -10,6 +10,8 @@
         <textarea rows="2" cols="50" id="linkSpot" form="postLink" ng-model="linkSpot"></textarea><br>
         <textarea rows="4" cols="50" id="description" form="postLink" ng-model="description"></textarea>
         <button type="button" id="sendMessage" name="postButt" ng-click="clickToPost()"> Post </button>
+        </br>
+        <p class="error" ng-show="vm.error" ng-bind="vm.error"></p>
     </form>
 </div>
 

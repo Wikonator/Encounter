@@ -9,11 +9,6 @@
     
     function AuthController(authService) {
         var vm = this;
-        console.log('auth');
-        //       vm.loggedin = {
-        //           status: Boolean(false)
-        //       };
-        console.log(authService)
         vm.register = authService.register;
         vm.login = authService.login;
         vm.logout = authService.logout;
@@ -22,7 +17,7 @@
             passwod: '',
             user: ''
         }
-        vm.error = '';
+        vm.error = authService.checkError;
         vm.isLoggedIn = authService.isLoggedIn;
 
     }
