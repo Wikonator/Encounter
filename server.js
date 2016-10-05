@@ -4,7 +4,7 @@ var express = require("express"),
     cookieSession = require('cookie-session'),
     app = express();
 
-var dbUrl = proccess.env.DATABASE_URL || "postgres://spiced:spiced1@localhost:5432/encounter"
+var dbUrl = process.env.DATABASE_URL || "postgres://spiced:spiced1@localhost:5432/encounter"
 app.use(express.static(__dirname + '/Static'));
 app.use(require("body-parser").urlencoded({
     extended: false
