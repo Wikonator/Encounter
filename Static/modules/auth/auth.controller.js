@@ -19,7 +19,7 @@
            user: ''
        }
        vm .error = '';
-       vm.isLoggedIn = false;
+       vm.isLoggedIn = true;
        
        function register(user) {
            $http.post('/register', {user:user.user,email: user.email, password: user.password}).then(function(){
@@ -31,7 +31,7 @@
        
        function logout(user){   
            $http.get('/logout').then(function(){
-               vm.isLoggedIn = false;
+               vm.isLoggedIn = true;
                location.hash = 'register'
                return;
            }).catch(function(error){
@@ -42,9 +42,7 @@
        
        function login(user){
            $http.get('/login').then(function(result){
-               console.log(vm.isLoggedIn)
-               vm.isLoggedIn = true;
-               console.log(vm.isLoggedIn)
+               vm.isLoggedIn = false;
                location.hash = '';
                return ;
            }).catch(function(error) {

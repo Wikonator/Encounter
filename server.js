@@ -49,21 +49,16 @@ function addLink(userID, link, image, description, res, req) {
 }
 
 app.post("/postLink",isLoggedIn, function(req, res, next) {
-    // console.log(req.body);
     var here = req.body,
         username = 1;
     function parse(link) {
         var url = new URL(link);
-        // console.log(url);
-        // console.log(url.protocol);
         return url.protocol;
     }
     var linkProtocol = parse(here.link);
         if ( linkProtocol == "http:" || linkProtocol == "https:") {
-            // console.log("its an if!");
         addLink(username, here.link, here.image, here.description, res, req);
     } else {
-        // console.log("it's an else!");
         res.json("this is not a valid url!");
     }
 })
@@ -125,6 +120,7 @@ app.get("/getComments",isLoggedIn,function(req,res) {
 //        res.status(404);
 //        res.end();
 //    }
+    console.log('getcomments')
     var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
     client.connect(function(err){
         if(err){
@@ -180,8 +176,6 @@ app.get("/login", function(req,res) {
             req.session.user = {
                 loggedin: true
             }
-
-            console.log(req.session)
             res.json(result.rows);
             res.end();
         })
