@@ -16,17 +16,17 @@
 
           scope.changeView = function (view) {
             //   console.log(view);
-            //   console.log("changing view to new Links");
-              $location.path(view);
+              console.log("changing view to new Links");
+              location.hash = view;
           }
 
           scope.comments = function(comments, link) {
--              location.hash = '#comments?id=' + link.id
++              location.hash = '#comments?id=' + link.id;
           }
 
           function getAllLinks() {
             $http.get("http://localhost:8080/getLinks").then(function(data){
-                // console.log(data.data);
+                console.log(data.data);
                 scope.links = data.data;
             });
           };

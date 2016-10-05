@@ -8,9 +8,9 @@
         <p>{{data.likes - data.disLikes}}</p>
     </div>
     <input ng-model="data.reply" placeholder="reply"></br>
-    <button ng-click="add(data,data.reply)">Reply</button>
-    <button ng-click="like(data)">like</button>
-    <button ng-click="disLike(data)">disLike</button>
+    <button class="button" ng-click="add(data,data.reply)">Reply</button>
+    <button class="button" ng-click="like(data)">like</button>
+    <button class="button" ng-click="disLike(data)">disLike</button>
     <br><br><br>
     <ul>
         <li ng-repeat="data in data.child track by $id($index)" ng-include="'x.html'"></li>
@@ -22,8 +22,8 @@
 <ul ng-app="app">
     <form id="comment">
         <input  ng-model="vm.comment.content" id="content" placeholder='comment'></br>
-        <button ng-click="vm.addComment(vm.comment.content)">add comment</button>
-    
+        <button class="button" ng-click="vm.addComment(vm.comment.content)">add comment</button>
+
     </form>
     <li ng-repeat="data in vm.tree track by $id($index)" ng-include="'x.html'"></li>
 </ul>

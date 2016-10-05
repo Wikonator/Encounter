@@ -13,10 +13,12 @@
     <body>
         <!-- Navbar       -->
         <div ng-controller="AuthController as vm" id='navbar'>
-            <a type="button" ng-click="vm.logout(vm.user)" ng-hide="vm.isLoggedIn">logout</a>
+            <a type="button" ng-click="vm.logout(vm.user)" ng-hide="vm.isLoggedIn">Logout</a>
             <a type="button" href="#/login">login</a>
+            <a type="button" href="#/newLinkPage"> New post
+            <a type="button" href="#/">Home</a>
         </div>
-        
+
         <!--   main view             -->
         <ng-view></ng-view>
 
@@ -40,11 +42,11 @@
         <script src="modules/comments/config.route.js"></script>
         <script src="modules/comments/directives/comment.directive.js"></script>
         <script src="modules/comments/directives/newComment.directive.js"></script>
-        
+
         <!-- auth module-->
         <script src="modules/auth/auth.module.js"></script>
         <script src="modules/auth/auth.controller.js"></script>
         <script src="modules/auth/config.route.js"></script>
-        
+
     </body>
 </html>
