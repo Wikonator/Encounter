@@ -19,9 +19,9 @@
             //   console.log("changing view to new Links");
               $location.path(view);
           }
-          
-          scope.comments = function(comments, link) {
-              location.hash = '#comments?id=' + link.id
+
+          scope.changeView = function(comments) {
+              location.hash = '#comments'
           }
 
           function getAllLinks() {
