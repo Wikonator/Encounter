@@ -151,11 +151,13 @@ app.post("/register", function(req,res) {
         var query = "INSERT INTO users (name,email,password) values ($1,$2,$3)";
         client.query(query,[req.body.user,req.body.email,req.body.password],function(err, result){
             if(err){
-            console.log(err);
-            }
-
-            res.json(result.rows);
+            res.status(403);
             res.end();
+            } else{
+                res.json(result.rows);
+                res.end();
+            }
+            
         })
     })
 })
