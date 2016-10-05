@@ -10,7 +10,7 @@
     <input ng-model="data.reply" placeholder="reply"></br>
     <button class="button" ng-click="add(data,data.reply)">Reply</button>
     <button class="button" ng-click="like(data)">like</button>
-    <button class="button" ng-click="disLike(data)">disLike</button>
+    <button class="button" ng-click="dislike(data)">disLike</button>
     <br><br><br>
     <ul>
         <li ng-repeat="data in data.child track by $id($index)" ng-include="'x.html'"></li>
