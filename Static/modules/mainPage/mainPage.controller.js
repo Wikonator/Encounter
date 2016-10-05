@@ -20,8 +20,8 @@
               $location.path(view);
           }
 
-          scope.changeView = function(comments) {
-              location.hash = '#comments'
+          scope.comments = function(comments, link) {
+              location.hash = '#comments?id=' + link.id;
           }
 
           function getAllLinks() {
