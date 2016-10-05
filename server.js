@@ -90,7 +90,7 @@ function getLinksFromDB(res) {
   });
 };
 
-app.get("/getLinks",isLoggedIn, function(req, res, next) {
+app.get("/getLinks", function(req, res, next) {
     getLinksFromDB(res);
 })
 
