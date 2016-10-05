@@ -4,7 +4,7 @@ var express = require("express"),
     cookieSession = require('cookie-session'),
     app = express();
 
-
+var dbUrl = process.env.DATABASE_URL || "postgres://spiced:spiced1@localhost:5432/encounter"
 app.use(express.static(__dirname + '/Static'));
 app.use(require("body-parser").urlencoded({
     extended: false
@@ -29,7 +29,7 @@ var isLoggedIn = function(req,res,next){
 
 
 function addLink(userID, link, image, description, res, req) {
-  var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+  var client = new pg.Client(dbUrl);
   client.connect(function(err) {
     if (err) {
       console.log("no connection happened");
@@ -49,27 +49,22 @@ function addLink(userID, link, image, description, res, req) {
 }
 
 app.post("/postLink",isLoggedIn, function(req, res, next) {
-    // console.log(req.body);
     var here = req.body,
         username = 1;
     function parse(link) {
         var url = new URL(link);
-        // console.log(url);
-        // console.log(url.protocol);
         return url.protocol;
     }
     var linkProtocol = parse(here.link);
         if ( linkProtocol == "http:" || linkProtocol == "https:") {
-            // console.log("its an if!");
         addLink(username, here.link, here.image, here.description, res, req);
     } else {
-        // console.log("it's an else!");
         res.json("this is not a valid url!");
     }
 })
 
 function getLinksFromDB(res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
   client.connect(function(err) {
     if (err) {
       console.log("no connection happened");
@@ -98,7 +93,7 @@ app.get("/getLinks", function(req, res, next) {
 //comments
 app.post("/addComment",isLoggedIn, function(req,res) {
     console.log(req.body)
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -125,7 +120,8 @@ app.get("/getComments",isLoggedIn,function(req,res) {
 //        res.status(404);
 //        res.end();
 //    }
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    console.log('getcomments')
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -146,7 +142,7 @@ app.get("/getComments",isLoggedIn,function(req,res) {
 
 // auth
 app.post("/register", function(req,res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -166,7 +162,7 @@ app.post("/register", function(req,res) {
 
 
 app.get("/login", function(req,res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             res.error('please check the connection with the DB');
@@ -180,8 +176,6 @@ app.get("/login", function(req,res) {
             req.session.user = {
                 loggedin: true
             }
-
-            console.log(req.session)
             res.json(result.rows);
             res.end();
         })
@@ -193,4 +187,4 @@ app.get("/logout", function(req,res) {
     res.json();
     res.end('logged out');
 });
-app.listen(8080);
+app.listen(process.env.PORT || 8080);

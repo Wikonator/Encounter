@@ -9,7 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wikonator/Encounter.git"
+    "url": "git+https://github.com/Wikonator/Encounter.git",
+    "engines": {
+        "node": "4.6.2"
+    }
   },
   "keywords": [
     "Links"
