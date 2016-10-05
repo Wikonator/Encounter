@@ -6,7 +6,8 @@
       'ngRoute',
       'app.mainPage',
       'app.comment',
-	'app.newLinkPage'
+	'app.newLinkPage',
+      'app.auth'
   ])
 
 })();

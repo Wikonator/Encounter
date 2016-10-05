@@ -9,7 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wikonator/Encounter.git"
+    "url": "git+https://github.com/Wikonator/Encounter.git",
+    "engines": {
+        "node": "4.6.2"
+    }
   },
   "keywords": [
     "Links"
@@ -22,6 +25,7 @@
   "homepage": "https://github.com/Wikonator/Encounter#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.14.0",
     "pg": "^6.1.0",
     "url-parse": "^1.1.3"

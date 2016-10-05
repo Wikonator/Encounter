@@ -1,11 +1,11 @@
 CREATE TABLE comments (
-    linkId integer REFERENCE links,
-    user varchar(255),
+    linkId integer REFERENCES links,
+    userName varchar(255),
     content varchar(255),
     date varchar(50),
-    id varchar(255),
+    id SERIAL,
     class varchar(255),
-    like integer,
+    likes integer,
     disLikes integer,
     parent varchar(255)
 )

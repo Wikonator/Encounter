@@ -16,14 +16,13 @@
 
           scope.changeView = function (view) {
             //   console.log(view);
-            //   console.log("changing view to new Links");
-              $location.path(view);
+              console.log("changing view to new Links");
+              location.hash = view;
           }
 
-          scope.changeToComment = function (id) {
-            //   var commentId = scope.   I NEED EVENT to carry the BUTTON ID to this function
-              console.log(commentId);
-              $location.path(commentId);
+          scope.comments = function(comments, link) {
+              location.hash = '#comments?id=' + link.id;
+
           }
 
           function getAllLinks() {
