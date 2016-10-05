@@ -4,7 +4,7 @@ var express = require("express"),
     cookieSession = require('cookie-session'),
     app = express();
 
-
+var dbUrl = proccess.env.DATABASE_URL || "postgres://spiced:spiced1@localhost:5432/encounter"
 app.use(express.static(__dirname + '/Static'));
 app.use(require("body-parser").urlencoded({
     extended: false
@@ -29,7 +29,7 @@ var isLoggedIn = function(req,res,next){
 
 
 function addLink(userID, link, image, description, res, req) {
-  var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+  var client = new pg.Client(dbUrl);
   client.connect(function(err) {
     if (err) {
       console.log("no connection happened");
@@ -64,7 +64,7 @@ app.post("/postLink",isLoggedIn, function(req, res, next) {
 })
 
 function getLinksFromDB(res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
   client.connect(function(err) {
     if (err) {
       console.log("no connection happened");
@@ -93,7 +93,7 @@ app.get("/getLinks", function(req, res, next) {
 //comments
 app.post("/addComment",isLoggedIn, function(req,res) {
     console.log(req.body)
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -121,7 +121,7 @@ app.get("/getComments",isLoggedIn,function(req,res) {
 //        res.end();
 //    }
     console.log('getcomments')
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -142,7 +142,7 @@ app.get("/getComments",isLoggedIn,function(req,res) {
 
 // auth
 app.post("/register", function(req,res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             throw new Error('please check the connection with the DB');
@@ -162,7 +162,7 @@ app.post("/register", function(req,res) {
 
 
 app.get("/login", function(req,res) {
-    var client = new pg.Client("postgres://spiced:spiced1@localhost:5432/encounter");
+    var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
             res.error('please check the connection with the DB');
