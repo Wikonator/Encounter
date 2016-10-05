@@ -187,4 +187,4 @@ app.get("/logout", function(req,res) {
     res.json();
     res.end('logged out');
 });
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
