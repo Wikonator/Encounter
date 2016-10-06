@@ -21,7 +21,7 @@
           }
 
           scope.comments = function(comments, link) {
-              location.hash = '#comments?id=' + link.id;
+              location.hash = '#comments?id=' + link.id +'&description=' + link.description + '&rul=' + link.link;
           }
 
           function getAllLinks() {

@@ -12,6 +12,8 @@
         vm.newComment =Comment;
         vm.id = getParameterByName('id');
         vm.tree =  getComments();
+        vm.description = getParameterByName('description');
+        vm.link = getParameterByName('url');
         
         function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
