@@ -1,5 +1,6 @@
 <form name="authForm" id="register" ng-submit="authForm.$valid && vm.register(vm.user)" novalidate>
     name:<input name="user" ng-model="vm.user.user" required autofocus placeholder="name">
+<<<<<<< HEAD
     
     <!--Name error-->
     <div ng-show="authForm.$submitted">
@@ -18,7 +19,7 @@
     <div ng-show="authForm.$submitted">
         <p ng-show="authForm.password.$error.required" class="error">Password required</p>
     </div>
-    <button type="submit">register</button>
+    <button class="button" type="submit">register</button>
     <br>
     <p class="error" ng-show="vm.error()" ng-bind="vm.error()"></p>
 </form>

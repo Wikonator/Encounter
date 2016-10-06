@@ -12,7 +12,7 @@
     <div ng-show="authForm.$submitted">
         <p ng-show="authForm.password.$error.required" class="error">Password required</p>
     </div>
-    <button type="submit">login</button>
+    <button class="button" type="submit">login</button>
     <br>
      <p class="error" ng-show="vm.error()" ng-bind="vm.error()"></p>
 </form>

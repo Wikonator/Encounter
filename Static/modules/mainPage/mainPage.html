@@ -1,19 +1,18 @@
 <div class="header">
 </div>
 
-<div>
+<div class="welcome">
   <h2 id="welcome"> Greetings! You have just Encountered a page full of interesting links!</h2>
   <p>Look around and feel free to comment on any link you see or post one yourself</p>
-
 </div>
 
-<div>
+<div class="welcome">
     <h4> Feel like Ntrusting us with something? Share something interesting!</h4>
-    <button type="button" id="linkToPost" ng-click="changeView('/newLinkPage')"> Nlighten someone!
+    <button class="button" type="button" id="linkToPost" ng-click="changeView('/newLinkPage')"> Nlighten someone!
     <!-- <a href="#/newLinkPage"> Feel like posting something? </h4> -->
 </div>
 
-<div>
+<div class="welcome">
     <div>
         <ul class="links">
         <div>
@@ -27,11 +26,11 @@
                 <div class="divArrowDown"> <img class="down-arr" src="/assets/down.jpg"> </img>
                 </div>
                 <span class="oneLink"><a href={{item.link}}> {{item.description}} </a> </span>
-                <button type="button" id={{item.id}} ng-click="comments('/comments', item)"> Comment
+                <button class="button" type="button" id={{item.id}} ng-click="comments('/comments', item)"> Comment
             </li>
         </div>
-</ul>
-</div>
+        </ul>
+    </div>
 </div>
 
 
