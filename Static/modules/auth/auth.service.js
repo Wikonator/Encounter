@@ -10,12 +10,13 @@
   function authService($http) {
 
     var service = {
+      isLoggedIn: isLoggedIn,
       userName: userName,
       user : null,
       register: register,
       login: login,
       logout: logout,
-      isLoggedIn: isLoggedIn,
+//      isLoggedIn: isLoggedIn,
       checkError: checkError,
       error: ''
     };

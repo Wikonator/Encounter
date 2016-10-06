@@ -174,7 +174,6 @@ app.post("/register", function(req,res) {
 
 
 app.post("/login", function(req,res) {
-    console.log(req.body)
     var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
@@ -182,8 +181,7 @@ app.post("/login", function(req,res) {
         }
 
         var query = "SELECT * FROM users where email = $1 and password = $2";
-        client.query(query,[req.body.email,req.body.password],function(err, result){
-    console.log(result) 
+        client.query(query,[req.body.email,req.body.password],function(err, result){ 
             if(err){
                 res.status(403);
                 res.end()
@@ -196,7 +194,6 @@ app.post("/login", function(req,res) {
                     user: result.rows[0].name
                 }
                 res.json(result.rows);
-                res.end();
             }
             
         })
@@ -204,8 +201,7 @@ app.post("/login", function(req,res) {
 })
 
 app.get("/logout", function(req,res) {
-    req.session.user = null;
-    res.json();
+    req.session = null;
     res.end('logged out');
 });
 app.listen(process.env.PORT || 8080);
