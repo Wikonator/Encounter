@@ -81,6 +81,13 @@ textarea{
     vertical-align: middle;
 }*/
 
+.menu-left ul {
+  margin: 0;
+  padding: 0;
+  font-size: 17px;
+    width: 100%;
+}
+
 .menu-left ul li {
   list-style: none;
   display:inline-block;
@@ -99,9 +106,9 @@ textarea{
     text-align:center;
 }
 
-/*.menu-left ul li a:active,*/
+.menu-left ul li a:active,
 .menu-left ul li a:hover {
-  background: rgba(50,153,187,0.8)
+	background: rgba(50,153,187,0.8);
 }
 
 input {
