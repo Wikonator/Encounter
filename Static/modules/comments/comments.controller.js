@@ -5,13 +5,22 @@
         .module('app.comment')
         .controller('CommentsController', CommentsController);
 
-
-    function CommentsController($scope,$http) {
+    CommentsController.$inject = ["$scope", "$http", "authService"];
+    function CommentsController($scope,$http,authService) {
         var vm = this;
         vm.comment = {};
         vm.newComment =Comment;
         vm.id = getParameterByName('id');
         vm.tree =  getComments();
+        vm.description = getParameterByName('description');
+        vm.link = getParameterByName('url');
+        vm.userName = '';
+        
+        authService.userName().then(function(name) {
+            vm.userName = name.name;
+        }).catch(function(err) {
+            vm.userName = null;   
+        });
         
         function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
@@ -26,9 +35,6 @@
         
         function Comment(reply,userName, date,parent,id) {
             this.content = reply;
-//            this.class = id;
-//            this.id = id;
-            //this.child = [];
             this.user = userName;
             this.date = date;
             this.likes = 0;
@@ -47,7 +53,7 @@
        
         vm.addComment = function(reply) {
             vm.comment = new Comment;
-            $http.post('/addComment', new Comment(reply,'userName',new Date,null,vm.id)).then(function(data){
+            $http.post('/addComment', new Comment(reply,vm.userName,(new Date).toString().split('GMT')[0],null,vm.id)).then(function(data){
                 vm.tree.push(data.data[0]);
                 },function(err){console.log(err)});
         }
@@ -56,18 +62,10 @@
             data.child = data.child || [];
             var post = data.child.length + 1;
             var newName = data.id + '-' + post;
-            //data.child.push(vm.newComment(data,content));
-            //var content = content;
-//            data.child.push({reply:'',likes: 0, disLikes: 0,content: reply, class: newName, id: newName, child: [], user: 'somebody', date: new Date});
-            console.log(data);
-            console.log('here')
-            var newComment = new Comment(reply,'userName',new Date,data.id,vm.id);
+            var newComment = new Comment(reply,vm.userName,(new Date).toString().split('GMT')[0],data.id,vm.id);
             $http.post('/addComment', newComment).then(function(result) {
-                newComment.id = result.data[0].id
-                console.log(result);
-//                vm.tree.push(result.config.data);
-                  data.child.push(result.config.data)
-                console.table(vm.tree);
+                newComment.id = result.data[0].id; 
+                data.child.push(result.config.data)
                 data.reply = '';
             })
         };
@@ -86,7 +84,6 @@
                     result[comment.parent] = result[comment.parent] || [];
                     result[comment.parent].push(comment);
                 });
-                    console.table(result);
                     
                         var x ;
                         for (var key in result){
@@ -103,11 +100,10 @@
                            }
 
                         }
-                console.table(vm.tree)
                 vm.tree =vm.tree.filter(function(comment,array,index){
                     return comment.parent === null
                 })
-                console.table(vm.tree)
+                
                     }).catch(function(err){
                         location.hash = 'login'
                     })

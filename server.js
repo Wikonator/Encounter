@@ -6,6 +6,7 @@ var express = require("express"),
 
 var dbUrl = process.env.DATABASE_URL || "postgres://spiced:spiced1@localhost:5432/encounter"
 app.use(express.static(__dirname + '/Static'));
+
 app.use(require("body-parser").urlencoded({
     extended: false
 }));
@@ -21,7 +22,7 @@ app.use(cookieSession({
 var isLoggedIn = function(req,res,next){
     if(!req.session.user){
         res.status(403);
-        res.end();
+        res.end('please log in or sign up!');
     } else {
         next();
     }
@@ -33,14 +34,17 @@ function addLink(userID, link, image, description, res, req) {
   client.connect(function(err) {
     if (err) {
       console.log("no connection happened");
-      throw err;
+      res.status(404);
+      res.end();
     }
     var input = 'INSERT INTO links (score, link, description, user_id) VALUES ($1, $2, $3, $4) RETURNING id';
 
     client.query(input, [1, link, description, userID], function(error, results) {
         if (error) {
-            console.log(error);
-            return res.json({error: "error"});
+            console.log(error)
+            res.status(403)
+            res.end('duplicate link!')
+            return;
         }
       client.end();
       res.json("allDone");
@@ -56,43 +60,47 @@ app.post("/postLink",isLoggedIn, function(req, res, next) {
         return url.protocol;
     }
     var linkProtocol = parse(here.link);
-        if ( linkProtocol == "http:" || linkProtocol == "https:") {
+    if ( linkProtocol == "http:" || linkProtocol == "https:") {
         addLink(username, here.link, here.image, here.description, res, req);
     } else {
-        res.json("this is not a valid url!");
+        res.status(403);
+        res.end('write a valid link')
     }
-})
+});
 
 function getLinksFromDB(res) {
     var client = new pg.Client(dbUrl);
   client.connect(function(err) {
     if (err) {
-      console.log("no connection happened");
       throw err;
     }
     var input = 'SELECT * FROM links';
 
     client.query(input, function(error, results) {
         if (error) {
-            console.log("count connect to database to get this");
-            return res.json("name", {error: "That email is already taken, fam!"});
+            console.log(error)
+            res.status(404);
+            res.end(error)
         }
         var myArr = results.rows;
         myArr.reverse();
-        console.log(myArr);
         client.end();
         res.json(myArr);
     });
   });
 };
 
+app.get('/isLoggedIn',isLoggedIn, function(req,res){
+   res.json({name: req.session.user.user,
+            isLoggedIn: req.session.user.loggedin
+            })
+});
 app.get("/getLinks", function(req, res, next) {
     getLinksFromDB(res);
 })
 
 //comments
 app.post("/addComment",isLoggedIn, function(req,res) {
-    console.log(req.body)
     var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
@@ -105,22 +113,24 @@ app.post("/addComment",isLoggedIn, function(req,res) {
         client.query(query,[req.body.linkId,req.body.user,req.body.content,req.body.date,req.body.likes,req.body.disLikes,req.body.parent], function(error,result){
 
             if(error){
-                console.log(error)
+                res.status(403);
+                res.end(error);
+            } else {
+                 res.json(result.rows);
+                res.end();
             }
-            res.json(result.rows);
-            res.end();
+           
         })
     });
 
 
 });
 
-app.get("/getComments",isLoggedIn,function(req,res) {
+app.get("/getComments",function(req,res) {
 //    if(!req.session.user) {
 //        res.status(404);
 //        res.end();
 //    }
-    console.log('getcomments')
     var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
@@ -151,40 +161,47 @@ app.post("/register", function(req,res) {
         var query = "INSERT INTO users (name,email,password) values ($1,$2,$3)";
         client.query(query,[req.body.user,req.body.email,req.body.password],function(err, result){
             if(err){
-            console.log(err);
+                res.status(403);
+                res.end('duplicate email');
+            } else{
+                res.json(result.rows);
+                res.end();
             }
-
-            res.json(result.rows);
-            res.end();
+            
         })
     })
 })
 
 
-app.get("/login", function(req,res) {
+app.post("/login", function(req,res) {
     var client = new pg.Client(dbUrl);
     client.connect(function(err){
         if(err){
-            res.error('please check the connection with the DB');
+            res.error('please che1ck the connection with the DB');
         }
 
         var query = "SELECT * FROM users where email = $1 and password = $2";
-        client.query(query,[req.body.email,req.body.password],function(err, result){
+        client.query(query,[req.body.email,req.body.password],function(err, result){ 
             if(err){
-            console.log(err);
+                res.status(403);
+                res.end()
+            } else if (result.rows.length === 0 ) {
+                res.status(403);
+                res.end('the email or password is not correct')
+            }else {
+                req.session.user = {
+                    loggedin: true,
+                    user: result.rows[0].name
+                }
+                res.json(result.rows);
             }
-            req.session.user = {
-                loggedin: true
-            }
-            res.json(result.rows);
-            res.end();
+            
         })
     })
 })
 
 app.get("/logout", function(req,res) {
-    req.session.user = null;
-    res.json();
+    req.session = null;
     res.end('logged out');
 });
 app.listen(process.env.PORT || 8080);

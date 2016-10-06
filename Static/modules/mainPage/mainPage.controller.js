@@ -21,13 +21,13 @@
           }
 
           scope.comments = function(comments, link) {
-              location.hash = '#comments?id=' + link.id;
 
+              location.hash = '#comments?id=' + link.id +'&description=' + link.description + '&rul=' + link.link;
           }
 
           function getAllLinks() {
             $http.get("http://localhost:8080/getLinks").then(function(data){
-                console.log(data.data);
+                // console.log(data.data);
                 scope.links = data.data;
             });
           };
