@@ -1,5 +1,7 @@
 /*conmments*/
-
+body {
+    margin: 0px;
+}
 ul {
     list-style: none
 }
@@ -47,7 +49,6 @@ ul {
    background: #124709;
 }
 
-
 textarea{
     resize: none;
     padding: 1%;
@@ -78,7 +79,9 @@ textarea{
     box-sizing: border-box;
 }
 
-
+.error {
+    color: red;
+}
 /*.logo {
     display: table-cell;
     width: 171px;
@@ -129,17 +132,24 @@ input {
 }
 
 #linkToPost {
+    width: 50%;
+    height: 50px;
     margin: 1%;
 }
 
 .up-arr {
+    display: none;
     height: 6%;
     width: 6%;
 }
 
 .down-arr {
+    display: none;
     height: 6%;
     width: 6%;
+}
+.score {
+    display: none;
 }
 
 .links {
@@ -147,14 +157,20 @@ input {
   list-style-type: none;
   padding: 0px;
   margin: 0px;
-  display: inline-block;
+  padding-left: 50px;
+  display: block;
+}
+
+.link {
+    border: 2px solid blue;
+      margin-bottom: 30px;
 }
 
 .oneLink {
   height: 30px;
   line-height: 14px;
   vertical-align: middle;
-  display: inline-block;
+  display: block;
 }
 
 .footer {

@@ -194,7 +194,6 @@ app.post("/login", function(req,res) {
                     user: result.rows[0].name
                 }
                 res.json(result.rows);
-                res.end();
             }
             
         })
@@ -203,7 +202,6 @@ app.post("/login", function(req,res) {
 
 app.get("/logout", function(req,res) {
     req.session = null;
-    res.json();
     res.end('logged out');
 });
 app.listen(process.env.PORT || 8080);
