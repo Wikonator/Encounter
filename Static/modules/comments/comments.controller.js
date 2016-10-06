@@ -17,7 +17,9 @@
         vm.userName = '';
         
         authService.userName().then(function(name) {
-            vm.userName = name;
+            vm.userName = name.name;
+        }).catch(function(err) {
+            vm.userName = null;   
         });
         
         function getParameterByName(name, url) {

@@ -1,4 +1,8 @@
 /*conmments*/
+
+ul {
+    list-style: none
+}
 .reply {
 
 }
@@ -59,29 +63,6 @@ input {
     border: 2px solid blue;
 }
 
-.comments-1 {
-    margin-left: 20px;
-    border: 2px solid blue;
-}
-
-.comments-1-1 {
-    margin-left: 40px;
-    border: 2px solid blue;
-}
-
-.comments-1-1-1 {
-    margin-left: 60px;
-    border: 2px solid blue;
-}
-
-.comments-1-1-1-1 {
-    margin-left: 60px;
-    border: 2px solid blue;
-}
-
-.Pcomment-1-1-1-1-1 {
-    margin-left: 60px;
-}
 
 /*main page*/
 

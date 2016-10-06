@@ -4,7 +4,7 @@
     
     <!--Name error-->
     <div ng-show="authForm.$submitted">
-        <p class="error" ng-show="authForm.user.$error.required">Email required</p>
+        <p class="error" ng-show="authForm.user.$error.required">Name required</p>
     </div>
     email:<input type="email" name="email" ng-model="vm.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"  required placeholder="email">
     

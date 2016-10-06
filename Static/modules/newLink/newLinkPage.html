@@ -7,12 +7,10 @@
 
 <div>
     <form action="/postLink" id="postLink" method="post">
-
-        <textarea rows="2" cols="50" id="linkSpot" form="postLink" ng-model="linkSpot" placeholder="Paste your link here!"></textarea><br>
+        <textarea rows="2" cols="50" id="linkSpot" form="postLink" ng-model="linkSpot" placeholder="Paste your link here!" required></textarea><br> 
         <textarea rows="4" cols="50" id="description" form="postLink" ng-model="description" placeholder="This will be displayed to users"></textarea>
         <button class="button" type="button" id="sendMessage" name="postButt" ng-click="clickToPost()"> Post </button>
         <p class="error" ng-show="vm.error" ng-bind="vm.error"></p>
-
     </form>
 </div>
 
