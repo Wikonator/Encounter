@@ -1,10 +1,4 @@
 /*conmments*/
-body {
-    margin: 0px;
-}
-ul {
-    list-style: none
-}
 .reply {
 
 }
@@ -49,6 +43,7 @@ ul {
    background: #124709;
 }
 
+
 textarea{
     resize: none;
     padding: 1%;
@@ -64,6 +59,7 @@ textarea{
     background: -ms-linear-gradient(top, #3e629c, #65a9d7);
     background: -o-linear-gradient(top, #3e629c, #65a9d7);
     position: relative;
+    border-radius: 0;
     top: 0;
     margin-top: 0px;
     margin-right: 0px;
@@ -79,9 +75,7 @@ textarea{
     box-sizing: border-box;
 }
 
-.error {
-    color: red;
-}
+
 /*.logo {
     display: table-cell;
     width: 171px;
@@ -127,6 +121,29 @@ input {
     border: 2px solid blue;
 }
 
+.comments-1 {
+    margin-left: 20px;
+    border: 2px solid blue;
+}
+
+.comments-1-1 {
+    margin-left: 40px;
+    border: 2px solid blue;
+}
+
+.comments-1-1-1 {
+    margin-left: 60px;
+    border: 2px solid blue;
+}
+
+.comments-1-1-1-1 {
+    margin-left: 60px;
+    border: 2px solid blue;
+}
+
+.Pcomment-1-1-1-1-1 {
+    margin-left: 60px;
+}
 
 /*main page*/
 
@@ -139,24 +156,17 @@ input {
 }
 
 #linkToPost {
-    width: 50%;
-    height: 50px;
     margin: 1%;
 }
 
 .up-arr {
-    display: none;
     height: 6%;
     width: 6%;
 }
 
 .down-arr {
-    display: none;
     height: 6%;
     width: 6%;
-}
-.score {
-    display: none;
 }
 
 .links {
@@ -164,20 +174,14 @@ input {
   list-style-type: none;
   padding: 0px;
   margin: 0px;
-  padding-left: 50px;
-  display: block;
-}
-
-.link {
-    border: 2px solid blue;
-      margin-bottom: 30px;
+  display: inline-block;
 }
 
 .oneLink {
   height: 30px;
   line-height: 14px;
   vertical-align: middle;
-  display: block;
+  display: inline-block;
 }
 
 .footer {

@@ -12,27 +12,23 @@
     </head>
     <body>
         <!-- Navbar-->
+        
         <div ng-controller="AuthController as vm" id='navbar'>
                 <!-- <div class="logo">
                   <a src="/assets/up.jpg"> </a>
                 </div> -->
                 <div class="menu-left">
-                  <ul id="menu-principal" class="menu" >
-                    <li id="logout" class="" ng-show="vm.isLoggedIn()">
-                      <a ng-click="vm.logout(vm.user)" >
+                  <ul id="menu-principal" class="menu">
+                    <li id="logout" class="">
+                      <a ng-click="vm.logout(vm.user)" ng-hide="vm.isLoggedIn">
                         Logout
                     </a>
                     </li>
-                    <li id="login" class="selected" ng-hide="vm.isLoggedIn()">
-                      <a href="#/login" >
+                    <li id="login" class="selected">
+                      <a href="#/login">
                         Login
                       </a>
                       </li>
-                      <li id="newLinkPage" class="">
-                      <a href="#/register">
-                        Register
-                      </a>
-                       </li>
                     <li id="newLinkPage" class="">
                       <a href="#/newLinkPage">
                         New Post
