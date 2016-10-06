@@ -63,7 +63,6 @@ app.post("/postLink",isLoggedIn, function(req, res, next) {
     if ( linkProtocol == "http:" || linkProtocol == "https:") {
         addLink(username, here.link, here.image, here.description, res, req);
     } else {
-        console.log('here')
         res.status(403);
         res.end('write a valid link')
     }
@@ -91,6 +90,11 @@ function getLinksFromDB(res) {
   });
 };
 
+app.get('/isLoggedIn',isLoggedIn, function(req,res){
+   res.json({name: req.session.user.user,
+            isLoggedIn: req.session.user.loggedin
+            })
+});
 app.get("/getLinks", function(req, res, next) {
     getLinksFromDB(res);
 })
@@ -188,7 +192,8 @@ app.post("/login", function(req,res) {
                 res.end('the email or password is not correct')
             }else {
                 req.session.user = {
-                    loggedin: true
+                    loggedin: true,
+                    user: result.rows[0].name
                 }
                 res.json(result.rows);
                 res.end();

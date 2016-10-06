@@ -26,7 +26,6 @@
     <form id="comment">
         <input  ng-model="vm.comment.content" id="content" placeholder='comment'></br>
         <button ng-click="vm.addComment(vm.comment.content)">add comment</button>
-    
     </form>
     <li ng-repeat="data in vm.tree track by $id($index)" ng-include="'x.html'"></li>
 </ul>

@@ -10,6 +10,8 @@
   function authService($http) {
 
     var service = {
+      userName: userName,
+      user : null,
       register: register,
       login: login,
       logout: logout,
@@ -23,6 +25,13 @@
     ////////////
       
     var loggedin = false;
+     
+    function userName() {
+        return $http.get('/isLoggedIn').then(function(result) {
+            service.user = result.data.name;
+            return result.data;
+        });
+    }
       
     function checkError() {
         return service.error;
@@ -43,7 +52,8 @@
     function logout(user) {
         $http.get('/logout').then(function() {
             loggedin = false;
-            location.hash = 'register'
+            service.user = null;
+            location.hash = 'register';
             return;
         }).catch(function(error) {
             console.log(error)
@@ -58,6 +68,7 @@
             password: user.password
         }).then(function(result) {
             loggedin = true;
+            service.user = user.user;
             location.hash = '';
             return;
         }).catch(function(error) {
