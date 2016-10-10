@@ -1,20 +1,15 @@
-<div class="header">
-</div>
+<div id="linkForm">
+  <div>
+      <h3 class="ltDan"> Here you can post a new link </h3>
+  </div>
 
-<div>
-    <h3> Here you can post a new link </h3>
-</div>
-
-<div>
-    <form action="/postLink" id="postLink" method="post">
-        <textarea rows="2" cols="50" id="linkSpot" form="postLink" ng-model="linkSpot" placeholder="Paste your link here!" required></textarea><br> 
-        <textarea rows="4" cols="50" id="description" form="postLink" ng-model="description" placeholder="This will be displayed to users"></textarea>
-        <button class="button" type="button" id="sendMessage" name="postButt" ng-click="clickToPost()"> Post </button>
-        <p class="error" ng-show="vm.error" ng-bind="vm.error"></p>
-    </form>
-</div>
+      <form action="/postLink" id="postLink" method="post">
+          <textarea rows="2" cols="50" class="linkSpot" form="postLink" ng-model="linkSpot" placeholder="Paste your link here!" required></textarea><br>
+          <textarea rows="4" cols="50" class="linkSpot" form="postLink" ng-model="description" placeholder="This will be displayed to users"></textarea>
+          <button type="button" id="sendMessage" name="postButt" ng-click="clickToPost()"> Post </button>
+          <p class="ltDan" class="error" ng-show="vm.error" ng-bind="vm.error"></p>
+      </form>
 
 
-<div class="footer">
-  <h4> do not feed the trolls</h4>
+  <h4 class="ltDan" style="margin-left: 5%"> do not feed the trolls</h4>
 </div>
